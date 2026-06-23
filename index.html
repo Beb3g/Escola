@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>US Independence</title>
+    <style>
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 10px rgba(220, 38, 38, 0.5), 0 0 20px rgba(245, 158, 11, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(220, 38, 38, 0.8), 0 0 30px rgba(245, 158, 11, 0.6);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+
+        @keyframes torchFlicker {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes libertyFloat {
+            0%, 100% {
+                transform: translateY(0) rotate(-5deg);
+            }
+            50% {
+                transform: translateY(-10px) rotate(0deg);
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            /* Background image (user provided) with a subtle dark overlay for readability */
+            background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.15)), url('https://imgs.search.brave.com/a3ZNbAnvC8_AbqlOodsibT2uHvUO3Uv-s47bkf9uWTA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMjE0/OTAwNjIyNC9wdC92/JUMzJUFEZGVvL3Zp/ZXctb2YtdGhlLXN0/YXR1ZS1vZi1saWJl/cnR5LWFuZC1tYW5o/YXR0YW4tbmV3LXlv/cmstY2l0eS5qcGc_/cz02NDB4NjQwJms9/MjAmYz1VYkpNUHot/cUVobVVEdlJfSlJl/V0RBWndJR0NTdkhz/VkVuZ3dBakJuVjlF/PQ') center/cover no-repeat fixed;
+            background-size: cover;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .liberty-statue-bg {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.1;
+            z-index: 0;
+            pointer-events: none;
+            font-size: 500px;
+            animation: libertyFloat 6s ease-in-out infinite;
+        }
+
+        header {
+            background: linear-gradient(90deg, #1e3c72 0%, #2a5298 50%, #dc2626 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 20px rgba(220, 38, 38, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            animation: slideInLeft 0.8s ease-out;
+            order: 1;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            flex: 1;
+            min-width: 300px;
+            animation: glow 2s ease-in-out infinite;
+            order: 2;
+            text-align: center;
+        }
+
+        .language-selector {
+            display: flex;
+            gap: 0.5rem;
+            animation: slideInRight 0.8s ease-out;
+            order: 3;
+        }
+
+        .lang-btn {
+            padding: 0.7rem 1.2rem;
+            border: 2px solid white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lang-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .lang-btn:hover::before {
+            left: 100%;
+        }
+
+        .lang-btn:hover {
+            background: linear-gradient(135deg, #f59e0b 0%, #dc2626 100%);
+            color: white;
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 8px 15px rgba(220, 38, 38, 0.4);
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, #dc2626 0%, #f59e0b 100%);
+            border-color: #fbbf24;
+            box-shadow: 0 0 20px rgba(220, 38, 38, 0.7), 0 0 10px rgba(245, 158, 11, 0.5);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            /* ~50% transparent containers so the background image is visible */
+            background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(240,249,255,0.45) 100%);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12), 0 0 30px rgba(42, 82, 152, 0.12);
+            animation: fadeInUp 0.8s ease-out both;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(42, 82, 152, 0.06);
+            transition: all 0.28s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 14px 30px rgba(220, 38, 38, 0.12), 0 0 40px rgba(42, 82, 152, 0.18);
+            border-color: rgba(220, 38, 38, 0.18);
+        }
+
+        /* Famous quote box translucent to reveal background */
+        #famous-quote {
+            font-style: italic;
+            /* ~50% translucent quote background */
+            background: rgba(240, 244, 255, 0.5);
+            padding: 1rem;
+            border-left: 4px solid rgba(102, 126, 234, 0.6);
+            border-radius: 5px;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .container:nth-child(1) { animation-delay: 0.1s; }
+        .container:nth-child(2) { animation-delay: 0.2s; }
+        .container:nth-child(3) { animation-delay: 0.3s; }
+        .container:nth-child(4) { animation-delay: 0.4s; }
+        .container:nth-child(5) { animation-delay: 0.5s; }
+
+        .container h2 {
+            color: #dc2626;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            border-bottom: 3px solid;
+            border-image: linear-gradient(90deg, #dc2626 0%, #f59e0b 100%) 1;
+            padding-bottom: 0.5rem;
+            animation: slideInLeft 0.6s ease-out;
+        }
+
+        .container h3 {
+            color: #2a5298;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+            animation: slideInLeft 0.6s ease-out;
+        }
+
+        .container p {
+            margin-bottom: 1rem;
+            text-align: justify;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.6rem;
+            animation: slideInLeft 0.6s ease-out;
+            transition: all 0.3s ease;
+        }
+
+        /* remove global li hover behavior to avoid moving unrelated text */
+        /* specific hover for timeline items is applied below */
+
+        .timeline {
+            border-left: 4px solid;
+            border-image: linear-gradient(180deg, #dc2626 0%, #f59e0b 100%) 1;
+            padding-left: 2rem;
+            margin: 2rem 0;
+        }
+
+        .timeline-item {
+            margin-bottom: 2rem;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item .clickable {
+            cursor: pointer;
+            /* default compact tappable area (before click) */
+            padding: 0.4rem 0.2rem;
+            display: block;
+        }
+
+        /* Fix for text clipping on last line: ensure proper line-height and rendering */
+        .timeline-item .clickable,
+        .timeline-item .clickable p,
+        .date-card,
+        .date-card p {
+            line-height: 1.6; /* comfortable spacing */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            backface-visibility: hidden;
+            transform: translateZ(0); /* promote to its own layer to avoid subpixel clipping */
+            padding-bottom: 0.2rem;
+        }
+
+        .details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            padding-top: 0;
+            color: #222;
+            background: rgba(255,255,255,0.9);
+            border-radius: 6px;
+            padding-left: 0.6rem;
+            padding-right: 0.6rem;
+            margin-top: 0.4rem;
+            z-index: 5;
+            box-sizing: border-box;
+        }
+
+        .details.open {
+            max-height: 800px; /* allow more content when opened */
+            padding-top: 1.4rem;
+            padding-bottom: 1rem;
+        }
+
+        /* only move timeline clickable area on hover */
+        .timeline .timeline-item .clickable:hover {
+            transform: translateX(8px);
+            transition: transform 0.2s ease;
+        }
+
+        /* change title color only for timeline items on hover */
+        .timeline .timeline-item .clickable:hover strong {
+            color: #dc2626;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.4rem;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, #dc2626 0%, #f59e0b 100%);
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #dc2626;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .timeline-item strong {
+            color: #2a5298;
+            font-size: 1.1rem;
+        }
+
+        .important-dates {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+            align-items: start; /* ensure cards don't stretch to the tallest in the row */
+        }
+
+        .date-card {
+            background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 50%, #f59e0b 100%);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 5px solid #dc2626;
+            animation: fadeInUp 0.8s ease-out;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: visible; /* allow details to expand outside the card */
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.2);
+            align-self: start; /* keep each card height independent in the grid */
+        }
+
+        /* remove moving highlight pseudo-element to avoid flicker */
+        .date-card::before {
+            display: none;
+        }
+
+        .date-card:hover {
+            /* subtle lift on hover without moving highlight */
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(220, 38, 38, 0.3);
+        }
+
+        .date-card { cursor: pointer; }
+
+        .date-card .details { color: #062047; }
+
+        .date-card strong {
+            color: #1e3c72;
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 900;
+        }
+
+        footer {
+            background: linear-gradient(90deg, #1e3c72 0%, #2a5298 50%, #dc2626 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.8s ease-out;
+            box-shadow: 0 -4px 15px rgba(220, 38, 38, 0.2);
+        }
+
+        .credits {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.9);
+            margin-top: 0.5rem;
+            opacity: 0.95;
+        }
+
+        .footer-stars {
+            display: inline-block;
+            margin: 0 10px;
+            animation: float 3s ease-in-out infinite;
+            font-size: 1.5rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        .logo-img {
+            height: 80px;
+            width: auto;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+            transition: all 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 6px 12px rgba(220, 38, 38, 0.3));
+        }
+
+        .school-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .school-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .school-location {
+            font-size: 0.9rem;
+            color: #fbbf24;
+            font-style: italic;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
+
+            .important-dates {
+                grid-template-columns: 1fr;
+            }
+
+            .liberty-statue-bg {
+                font-size: 300px;
+                opacity: 0.08;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="liberty-statue-bg">🗽</div>
+    <header>
+        <div class="header-content">
+            <div class="logo-container">
+                <!-- Logo do Colégio Integrado Cesurg Marau/RS -->
+                <img src="https://d335luupugsy2.cloudfront.net/cms/files/71304/1728492379/$0ges1m7c2qzt" alt="Colégio Integrado Cesurg Logo" class="logo-img">
+            </div>
+            <h1 id="title">United States Independence</h1>
+            <div class="language-selector">
+                <button class="lang-btn active" onclick="setLanguage('en')" id="btn-en">English</button>
+                <button class="lang-btn" onclick="setLanguage('pt')" id="btn-pt">Português</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Overview Section -->
+        <section class="container">
+            <h2 id="overview-title">Overview</h2>
+            <p id="overview-text">
+                The Declaration of Independence, signed on July 4, 1776, marked the beginning of the United States of America as an independent nation. This pivotal document declared the thirteen British American colonies free and independent states, breaking away from the rule of King George III.
+            </p>
+        </section>
+
+        <!-- Historical Background -->
+        <section class="container">
+            <h2 id="background-title">Historical Background</h2>
+            
+            <h3 id="causes-title">Causes of Independence</h3>
+            <p id="causes-text">
+                Several factors led to the American Revolution and the desire for independence:
+            </p>
+            <ul id="causes-list">
+                <li><strong id="cause1-title">Taxation Without Representation:</strong> <span id="cause1-text">The British Parliament imposed taxes on the colonies without their representation or consent.</span></li>
+                <li><strong id="cause2-title">Restrictive Trade Policies:</strong> <span id="cause2-text">Mercantile laws limited colonial commerce and economic freedom.</span></li>
+                <li><strong id="cause3-title">Quartering Act:</strong> <span id="cause3-text">Colonists were forced to house British soldiers.</span></li>
+                <li><strong id="cause4-title">Philosophical Ideas:</strong> <span id="cause4-text">Enlightenment thinkers influenced colonial leaders with ideas about natural rights and democracy.</span></li>
+            </ul>
+
+            <h3 id="key-events-title">Key Events</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="clickable" data-details="stamp-act-details">
+                        <strong>1765 - <span id="stamp-act-label">Stamp Act</span></strong>
+                        <p id="stamp-act-text">Britain attempted to tax the colonies, provoking widespread resistance and protests.</p>
+                    </div>
+                    <div class="details" id="stamp-act-details"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="clickable" data-details="boston-massacre-details">
+                        <strong>1770 - <span id="boston-massacre-label">Boston Massacre</span></strong>
+                        <p id="boston-massacre-text">British soldiers fired on colonists, killing five people, causing outrage across the colonies.</p>
+                    </div>
+                    <div class="details" id="boston-massacre-details"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="clickable" data-details="boston-tea-details">
+                        <strong>1773 - <span id="boston-tea-label">Boston Tea Party</span></strong>
+                        <p id="boston-tea-text">Colonists protested the Tea Act by dumping tea into Boston Harbor, leading to harsh British retaliation.</p>
+                    </div>
+                    <div class="details" id="boston-tea-details"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="clickable" data-details="lexington-details">
+                        <strong>1775 - <span id="lexington-label">Battles of Lexington and Concord</span></strong>
+                        <p id="lexington-text">The first military engagements of the American Revolutionary War occurred in Massachusetts.</p>
+                    </div>
+                    <div class="details" id="lexington-details"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Declaration of Independence -->
+        <section class="container">
+            <h2 id="declaration-title">Declaration of Independence</h2>
+            <p id="declaration-intro">
+                Drafted primarily by Thomas Jefferson, the Declaration of Independence presented the colonists' grievances and stated their reasons for separation.
+            </p>
+            
+            <h3 id="famous-quote-title">Famous Quote</h3>
+            <p id="famous-quote">
+                "We hold these truths to be self-evident, that all men are created equal, that they are endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty and the pursuit of Happiness."
+            </p>
+
+            <h3 id="signers-title">Key Signers</h3>
+            <ul id="signers-list">
+                <li><strong id="jefferson-name">Thomas Jefferson</strong> - <span id="jefferson-role">Primary author (Virginia)</span></li>
+                <li><strong id="franklin-name">Benjamin Franklin</strong> - <span id="franklin-role">Diplomat and scientist (Pennsylvania)</span></li>
+                <li><strong id="adams-name">John Adams</strong> - <span id="adams-role">Diplomat and future president (Massachusetts)</span></li>
+                <li><strong id="hancock-name">John Hancock</strong> - <span id="hancock-role">President of Congress (Massachusetts)</span></li>
+            </ul>
+        </section>
+
+        <!-- Revolutionary War -->
+        <section class="container">
+            <h2 id="war-title">The American Revolutionary War</h2>
+            <p id="war-intro">
+                The Revolutionary War lasted from 1775 to 1783, with pivotal battles and turning points that shaped the nation's future.
+            </p>
+
+            <h3 id="important-dates-label">Important Dates and Events</h3>
+            <div class="important-dates">
+                <div class="date-card" data-details="date1-details">
+                    <strong id="date1-year">1776</strong>
+                    <p id="date1-event">Declaration of Independence signed</p>
+                    <div class="details" id="date1-details"></div>
+                </div>
+                <div class="date-card" data-details="date2-details">
+                    <strong id="date2-year">1777</strong>
+                    <p id="date2-event">American victory at Saratoga (turning point)</p>
+                    <div class="details" id="date2-details"></div>
+                </div>
+                <div class="date-card" data-details="date3-details">
+                    <strong id="date3-year">1778</strong>
+                    <p id="date3-event">France enters the war as American ally</p>
+                    <div class="details" id="date3-details"></div>
+                </div>
+                <div class="date-card" data-details="date4-details">
+                    <strong id="date4-year">1781</strong>
+                    <p id="date4-event">British surrender at Yorktown</p>
+                    <div class="details" id="date4-details"></div>
+                </div>
+                <div class="date-card" data-details="date5-details">
+                    <strong id="date5-year">1783</strong>
+                    <p id="date5-event">Treaty of Paris officially recognizes American independence</p>
+                    <div class="details" id="date5-details"></div>
+                </div>
+            </div>
+
+            <h3 id="leaders-title">Revolutionary Leaders</h3>
+            <ul id="leaders-list">
+                <li><strong id="washington-name">George Washington</strong> - <span id="washington-role">Commander-in-Chief of Continental Army</span></li>
+                <li><strong id="jefferson-rev-name">Thomas Jefferson</strong> - <span id="jefferson-rev-role">Primary author of Declaration of Independence</span></li>
+                <li><strong id="franklin-rev-name">Benjamin Franklin</strong> - <span id="franklin-rev-role">Diplomat and secured French support</span></li>
+                <li><strong id="lafayette-name">Marquis de Lafayette</strong> - <span id="lafayette-role">French volunteer general</span></li>
+            </ul>
+        </section>
+
+        <!-- Legacy Section -->
+        <section class="container">
+            <h2 id="legacy-title">Legacy and Impact</h2>
+            <p id="legacy-text">
+                American independence inspired democratic movements worldwide and established principles of self-governance and individual rights that continue to influence nations today.
+            </p>
+            
+            <h3 id="constitution-title">The Constitution</h3>
+            <p id="constitution-intro">
+                In 1787, the United States Constitution was drafted and ratified, establishing the framework for the federal government and protecting individual rights through the Bill of Rights.
+            </p>
+
+            <h3 id="worldwide-impact-title">Worldwide Impact</h3>
+            <ul id="worldwide-impact-list">
+                <li id="impact1">Inspired democratic revolutions in France, Latin America, and beyond</li>
+                <li id="impact2">Established the principle of government by consent of the governed</li>
+                <li id="impact3">Protected fundamental human rights and freedoms</li>
+                <li id="impact4">Created a model for federal democracy and separation of powers</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <div class="credits" id="credits-text">Feito por: Murilo Nöremberg</div>
+    </footer>
+
+    <script>
+        // Translations object
+        const translations = {
+            en: {
+                title: "United States Independence",
+                'overview-title': "Overview",
+                'overview-text': "The Declaration of Independence, signed on July 4, 1776, marked the beginning of the United States of America as an independent nation. This pivotal document declared the thirteen British American colonies free and independent states, breaking away from the rule of King George III.",
+                'background-title': "Historical Background",
+                'causes-title': "Causes of Independence",
+                'causes-text': "Several factors led to the American Revolution and the desire for independence:",
+                'cause1-title': "Taxation Without Representation:",
+                'cause1-text': "The British Parliament imposed taxes on the colonies without their representation or consent.",
+                'cause2-title': "Restrictive Trade Policies:",
+                'cause2-text': "Mercantile laws limited colonial commerce and economic freedom.",
+                'cause3-title': "Quartering Act:",
+                'cause3-text': "Colonists were forced to house British soldiers.",
+                'cause4-title': "Philosophical Ideas:",
+                'cause4-text': "Enlightenment thinkers influenced colonial leaders with ideas about natural rights and democracy.",
+                'key-events-title': "Key Events",
+                'stamp-act-label': "Stamp Act",
+                'stamp-act-text': "Britain attempted to tax the colonies, provoking widespread resistance and protests.",
+                'stamp-act-details': "The Stamp Act of 1765 required many printed materials in the colonies to be produced on stamped paper from London, carrying an embossed revenue stamp. Colonists argued it was taxation without representation, sparking protests and organization such as the Sons of Liberty.",
+                'boston-massacre-label': "Boston Massacre",
+                'boston-massacre-text': "British soldiers fired on colonists, killing five people, causing outrage across the colonies.",
+                'boston-massacre-details': "On March 5, 1770, tensions between British troops and colonists erupted; after taunting and confrontation, soldiers fired, killing five colonists. The event was widely publicized and helped galvanize colonial opposition.",
+                'boston-tea-label': "Boston Tea Party",
+                'boston-tea-text': "Colonists protested the Tea Act by dumping tea into Boston Harbor, leading to harsh British retaliation.",
+                'boston-tea-details': "In December 1773, colonists disguised as Mohawk Indians boarded ships and dumped 342 chests of tea into Boston Harbor in protest of the Tea Act. The British responded with the Coercive Acts (Intolerable Acts), increasing tensions.",
+                'lexington-label': "Battles of Lexington and Concord",
+                'lexington-text': "The first military engagements of the American Revolutionary War occurred in Massachusetts.",
+                'lexington-details': "On April 19, 1775, British forces marched to seize colonial arms. Confrontations at Lexington and Concord triggered militia resistance; these skirmishes marked the outbreak of open war between Britain and the colonies.",
+                'declaration-title': "Declaration of Independence",
+                'declaration-intro': "Drafted primarily by Thomas Jefferson, the Declaration of Independence presented the colonists' grievances and stated their reasons for separation.",
+                'famous-quote-title': "Famous Quote",
+                'signers-title': "Key Signers",
+                'jefferson-name': "Thomas Jefferson",
+                'jefferson-role': "Primary author (Virginia)",
+                'franklin-name': "Benjamin Franklin",
+                'franklin-role': "Diplomat and scientist (Pennsylvania)",
+                'adams-name': "John Adams",
+                'adams-role': "Diplomat and future president (Massachusetts)",
+                'hancock-name': "John Hancock",
+                'hancock-role': "President of Congress (Massachusetts)",
+                'war-title': "The American Revolutionary War",
+                'war-intro': "The Revolutionary War lasted from 1775 to 1783, with pivotal battles and turning points that shaped the nation's future.",
+                'important-dates-label': "Important Dates and Events",
+                'date1-year': "1776",
+                'date1-event': "Declaration of Independence signed",
+                'date1-details': "On July 4, 1776, the Continental Congress adopted the Declaration of Independence, formally announcing the colonies' separation from Britain and listing grievances against King George III.",
+                'date2-year': "1777",
+                'date2-event': "American victory at Saratoga (turning point)",
+                'date2-details': "The Battles of Saratoga (September–October 1777) ended in a major American victory, convincing France to enter the war openly as an ally of the United States.",
+                'date3-year': "1778",
+                'date3-event': "France enters the war as American ally",
+                'date3-details': "In 1778 France signed treaties with the United States, provided military and naval support, and turned the conflict into an international war that stretched British resources.",
+                'date4-year': "1781",
+                'date4-event': "British surrender at Yorktown",
+                'date4-details': "The Siege of Yorktown (September–October 1781) culminated in General Cornwallis's surrender to American and French forces, effectively ending major military operations in the colonies.",
+                'date5-year': "1783",
+                'date5-event': "Treaty of Paris officially recognizes American independence",
+                'date5-details': "The Treaty of Paris (1783) was signed by representatives of the United States and Great Britain, recognizing American independence and establishing borders for the new nation.",
+                'leaders-title': "Revolutionary Leaders",
+                'washington-name': "George Washington",
+                'washington-role': "Commander-in-Chief of Continental Army",
+                'jefferson-rev-name': "Thomas Jefferson",
+                'jefferson-rev-role': "Primary author of Declaration of Independence",
+                'franklin-rev-name': "Benjamin Franklin",
+                'franklin-rev-role': "Diplomat and secured French support",
+                'lafayette-name': "Marquis de Lafayette",
+                'lafayette-role': "French volunteer general",
+                'legacy-title': "Legacy and Impact",
+                'legacy-text': "American independence inspired democratic movements worldwide and established principles of self-governance and individual rights that continue to influence nations today.",
+                'constitution-title': "The Constitution",
+                'constitution-intro': "In 1787, the United States Constitution was drafted and ratified, establishing the framework for the federal government and protecting individual rights through the Bill of Rights.",
+                'worldwide-impact-title': "Worldwide Impact",
+                'impact1': "Inspired democratic revolutions in France, Latin America, and beyond",
+                'impact2': "Established the principle of government by consent of the governed",
+                'impact3': "Protected fundamental human rights and freedoms",
+                'impact4': "Created a model for federal democracy and separation of powers",
+                'credits-text': "Made by: Murilo Nöremberg"
+            },
+            pt: {
+                title: "Independência dos Estados Unidos",
+                'overview-title': "Visão Geral",
+                'overview-text': "A Declaração de Independência, assinada em 4 de julho de 1776, marcou o início dos Estados Unidos como nação independente. Este documento revolucionário declarou as treze colônias americanas britânicas livres e estados independentes, se afastando do domínio do Rei George III.",
+                'background-title': "Contexto Histórico",
+                'causes-title': "Causas da Independência",
+                'causes-text': "Vários fatores levaram à Revolução Americana e ao desejo de independência:",
+                'cause1-title': "Tributação sem Representação:",
+                'cause1-text': "O Parlamento Britânico impôs impostos às colônias sem sua representação ou consentimento.",
+                'cause2-title': "Políticas Comerciais Restritivas:",
+                'cause2-text': "As leis mercantilistas limitavam o comércio colonial e a liberdade econômica.",
+                'cause3-title': "Lei de Aquartelamento:",
+                'cause3-text': "Os colonos foram obrigados a abrigar soldados britânicos.",
+                'cause4-title': "Ideias Filosóficas:",
+                'cause4-text': "Pensadores do Iluminismo influenciaram líderes coloniais com ideias sobre direitos naturais e democracia.",
+                'key-events-title': "Eventos-Chave",
+                'stamp-act-label': "Lei do Selo",
+                'stamp-act-text': "A Grã-Bretanha tentou tributar as colônias, provocando ampla resistência e protestos.",
+                'stamp-act-details': "A Lei do Selo de 1765 exigia que muitos materiais impressos nas colônias fossem produzidos em papel selado de Londres, com um selo de receita em relevo. Os colonos argumentaram que era tributação sem representação, gerando protestos e organizações como os Sons of Liberty.",
+                'boston-massacre-label': "Massacre de Boston",
+                'boston-massacre-text': "Soldados britânicos atiraram em colonos, matando cinco pessoas, causando indignação em todas as colônias.",
+                'boston-massacre-details': "Em 5 de março de 1770, as tensões entre tropas britânicas e colonos explodiram; após provocações, soldados dispararam, matando cinco colonos. O evento foi amplamente divulgado e ajudou a galvanizar a oposição colonial.",
+                'boston-tea-label': "Festa do Chá de Boston",
+                'boston-tea-text': "Os colonos protestaram contra a Lei do Chá jogando chá no Porto de Boston, levando a duras retaliações britânicas.",
+                'boston-tea-details': "Em dezembro de 1773, colonos disfarçados de índios Mohawk embarcaram em navios e jogaram 342 caixas de chá no Porto de Boston em protesto contra a Lei do Chá. Os britânicos responderam com as Leis Coercitivas (Leis Intoleráveis), aumentando as tensões.",
+                'lexington-label': "Batalhas de Lexington e Concord",
+                'lexington-text': "Os primeiros engajamentos militares da Guerra Revolucionária Americana ocorreram em Massachusetts.",
+                'lexington-details': "Em 19 de abril de 1775, forças britânicas marcharam para apreender armas coloniais. Confrontos em Lexington e Concord desencadearam a resistência da milícia; esses conflitos marcaram o início da guerra aberta entre a Grã-Bretanha e as colônias.",
+                'declaration-title': "Declaração de Independência",
+                'declaration-intro': "Redigida principalmente por Thomas Jefferson, a Declaração de Independência apresentou as reclamações dos colonos e declarou seus motivos para separação.",
+                'famous-quote-title': "Citação Famosa",
+                'signers-title': "Signatários Principais",
+                'jefferson-name': "Thomas Jefferson",
+                'jefferson-role': "Autor principal (Virgínia)",
+                'franklin-name': "Benjamin Franklin",
+                'franklin-role': "Diplomata e cientista (Pensilvânia)",
+                'adams-name': "John Adams",
+                'adams-role': "Diplomata e futuro presidente (Massachusetts)",
+                'hancock-name': "John Hancock",
+                'hancock-role': "Presidente do Congresso (Massachusetts)",
+                'war-title': "A Guerra Revolucionária Americana",
+                'war-intro': "A Guerra Revolucionária durou de 1775 a 1783, com batalhas decisivas e pontos de virada que moldaram o futuro da nação.",
+                'important-dates-label': "Datas e Eventos Importantes",
+                'date1-year': "1776",
+                'date1-event': "Declaração de Independência assinada",
+                'date1-details': "Em 4 de julho de 1776, o Congresso Continental adotou a Declaração de Independência, anunciando formalmente a separação das colônias da Grã-Bretanha e listando queixas contra o Rei George III.",
+                'date2-year': "1777",
+                'date2-event': "Vitória americana em Saratoga (ponto de virada)",
+                'date2-details': "As Batalhas de Saratoga (setembro–outubro de 1777) terminaram com uma grande vitória americana, convencendo a França a entrar oficialmente na guerra como aliada dos Estados Unidos.",
+                'date3-year': "1778",
+                'date3-event': "França entra na guerra como aliada americana",
+                'date3-details': "Em 1778, a França assinou tratados com os Estados Unidos, fornecendo apoio militar e naval, transformando o conflito em uma guerra internacional que sobrecarregou os recursos britânicos.",
+                'date4-year': "1781",
+                'date4-event': "Rendição britânica em Yorktown",
+                'date4-details': "O Cerco de Yorktown (setembro–outubro de 1781) culminou na rendição do general Cornwallis às forças americanas e francesas, encerrando efetivamente as operações militares principais nas colônias.",
+                'date5-year': "1783",
+                'date5-event': "Tratado de Paris reconhece oficialmente a independência americana",
+                'date5-details': "O Tratado de Paris (1783) foi assinado por representantes dos Estados Unidos e da Grã-Bretanha, reconhecendo a independência americana e estabelecendo as fronteiras da nova nação.",
+                'leaders-title': "Líderes Revolucionários",
+                'washington-name': "George Washington",
+                'washington-role': "Comandante-em-Chefe do Exército Continental",
+                'jefferson-rev-name': "Thomas Jefferson",
+                'jefferson-rev-role': "Autor principal da Declaração de Independência",
+                'franklin-rev-name': "Benjamin Franklin",
+                'franklin-rev-role': "Diplomata e obteve apoio francês",
+                'lafayette-name': "Marquês de Lafayette",
+                'lafayette-role': "General voluntário francês",
+                'legacy-title': "Legado e Impacto",
+                'legacy-text': "A independência americana inspirou movimentos democráticos em todo o mundo e estabeleceu princípios de autogoverno e direitos individuais que continuam a influenciar as nações hoje.",
+                'constitution-title': "A Constituição",
+                'constitution-intro': "Em 1787, a Constituição dos Estados Unidos foi redigida e ratificada, estabelecendo o marco para o governo federal e protegendo os direitos individuais através da Declaração de Direitos.",
+                'worldwide-impact-title': "Impacto Mundial",
+                'impact1': "Inspirou revoluções democráticas na França, América Latina e além",
+                'impact2': "Estabeleceu o princípio de governo pelo consentimento dos governados",
+                'impact3': "Protegeu liberdades e direitos humanos fundamentais",
+                'impact4': "Criou um modelo para democracia federal e separação de poderes",
+                'credits-text': "Feito por: Murilo Nöremberg"
+            }
+        };
+
+        // Store current language
+        let currentLanguage = 'en';
+
+        // Function to set language
+        function setLanguage(lang) {
+            currentLanguage = lang;
+
+            // Update button states
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-pt').classList.toggle('active', lang === 'pt');
+
+            // Update all text content for elements whose id matches a translation key
+            for (const [id, text] of Object.entries(translations[lang])) {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.textContent = text;
+                }
+            }
+
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+
+            // Save preference to localStorage
+            localStorage.setItem('language', lang);
+
+            // Update any details content and adjust heights for open panels
+            document.querySelectorAll('.details').forEach(d => {
+                const key = d.id;
+                const content = translations[lang] && translations[lang][key];
+                if (content !== undefined) d.textContent = content;
+                if (d.classList.contains('open')) {
+                    // update maxHeight after content change (add small buffer to avoid clipping)
+                    const buffer = 24;
+                    d.style.maxHeight = (d.scrollHeight + buffer) + 'px';
+                }
+            });
+        }
+
+        // Populate a details element from translations
+        function populateDetails(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            const content = (translations[currentLanguage] && translations[currentLanguage][id]) || '';
+            el.textContent = content;
+        }
+
+        // Toggle details (open/close) with smooth height animation
+        function toggleDetails(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            const isOpen = el.classList.toggle('open');
+            if (isOpen) {
+                populateDetails(id);
+                // wait for browser to render content then set explicit maxHeight
+                requestAnimationFrame(() => {
+                    // add small buffer to avoid last-line clipping due to rounding or padding
+                    const buffer = 24;
+                    el.style.maxHeight = (el.scrollHeight + buffer) + 'px';
+                    // ensure the opened details are visible
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            } else {
+                // collapse
+                el.style.maxHeight = null;
+            }
+        }
+
+        // Attach click/keyboard handlers to elements with data-details
+        function attachDetailsHandlers() {
+            document.querySelectorAll('[data-details]').forEach(node => {
+                node.addEventListener('click', (e) => {
+                    const id = node.dataset.details;
+                    toggleDetails(id);
+                });
+                node.setAttribute('role', 'button');
+                node.setAttribute('tabindex', '0');
+                node.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggleDetails(node.dataset.details);
+                    }
+                });
+            });
+        }
+
+        // Load saved language preference or use default
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLanguage = localStorage.getItem('language') || 'en';
+            setLanguage(savedLanguage);
+            // Attach click handlers for expandable details
+            attachDetailsHandlers();
+        });
+    </script>
+</body>
+</html>
